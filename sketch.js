@@ -8,12 +8,15 @@ var r = new Rune({
 
 function graphic() {
 
+    // This creates a bunch of equally spaced rectangles of different sizes in a gaussian distribution.
+    // The spacing is accomplished with a circle-packing approach that's fast and easy.
+
     // User constants
     const attempts = 50000; // number of attempts
     const margin = 20; // pixel margin
     const radMin = 5; // min circle radius
     const radMax = 15; // max circle radius
-    const spacing = -1; // min space between bubbles
+    const spacing = -1; // min space between circles
 
     // Calculated constants
     const _width = r.width - (radMax * 2);
@@ -68,16 +71,17 @@ function graphic() {
     // Loop over all the circles in the array
     for (let i = 0; i < circles.length; i++) {
 
-        // Draw an eye in each
+        // Draw an square in each - either black or pink
         if (Math.random() < 0.95) {
-        	r.rect(circles[i].pos.x - circles[i].rad/2, circles[i].pos.y - circles[i].rad, circles[i].rad, circles[i].rad, black).fill("none");
+            r.rect(circles[i].pos.x - circles[i].rad/2, circles[i].pos.y - circles[i].rad, circles[i].rad, circles[i].rad, black).fill("none");
         } else {
-        	r.rect(circles[i].pos.x - circles[i].rad/2, circles[i].pos.y - circles[i].rad, circles[i].rad, circles[i].rad, pink).fill("pink").stroke("none");
+            r.rect(circles[i].pos.x - circles[i].rad/2, circles[i].pos.y - circles[i].rad, circles[i].rad, circles[i].rad, pink).fill("pink").stroke("none");
         }
         
 
     }
 
+    // Rotate the squares to turn them into diamonds
     black.rotate(45, r.width/2, r.height/2)
     pink.rotate(45, r.width/2, r.height/2)
 
